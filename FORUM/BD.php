@@ -2,18 +2,22 @@
 class BDD{
 	public $pdo;
 	private $stmt;
-	public function __construct($sqlHost,$sqlDb=null,$sqlUser,$sqlPassword){
+	public function __construct($sqlHost=null,$sqlDb=null,$sqlUser=null,$sqlPassword=null){
          try {
+            // $this->pdo=new pdo('mysql:host=localhost;dbname=talkingspace',"root","");
             $this->pdo=new pdo('mysql:host='.$sqlHost.';dbname='.$sqlDb.'',"$sqlUser","$sqlPassword");
         }catch (PDOException $e) { //catch any error of type PDOException
             $this->error = $e->getMessage();
         }
 	}
-	public function LoadData($sqlquery,$sqlParam=null,$sqlParam2=null){
-		$stmt = $this->pdo->prepare($sqlquery);
-		$stmt->execute(array($sqlParam,$sqlParam2));
-		return $stmt->fetchall();
-	}	
+	// public function LoadData($sqlquery,$sqlParam=null,$sqlParam2=null){
+ //        return $stmt->fetchall();
+ //    }   
+    public function LoadData(){
+        $this->stmt->execute();
+        return $this->stmt->fetchall();
+    }   
+
 	public function query($query){
         $pdo=$this->pdo;
         $this->stmt = $pdo->prepare($query);

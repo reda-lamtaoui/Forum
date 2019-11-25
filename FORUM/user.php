@@ -1,5 +1,4 @@
 <?php 
-session_start();
  class user {
  	private $DB;
  	private $id;
@@ -55,7 +54,8 @@ session_start();
         $DB->bind(':email',$data['email']);
         $DB->bind(':avatar',$data['avatar']);
         $DB->bind(':username',$data['username']);
-        $DB->bind(':password',$pass);
+        // $DB->bind(':password',$pass);
+        $DB->bind(':password',$data['password']);
         $DB->bind(':about',$data['about']);
         $DB->bind(':joinDate',$data['joinDate']);
         //Execute
@@ -81,15 +81,25 @@ foreach ($Results as $result) {
 			$this->about=$result[6];
 			$this->lastActivity=$result[7];
 		}
-		$
 		}		
 		
 	}
 
-	public function getPrenom(){
+	public function getName(){
+		return $this->name;
+	}
+	public function getId(){
+		return $this->id;
 	}
 
 	public function getPassword(){
+
+	}
+	public function getEmail(){
+		return $this->email;
+	}
+	public function getUsername(){
+		return $this->username;
 	}
 
  }

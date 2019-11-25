@@ -33,7 +33,7 @@
                   <div class="modal-body">
                     
                        <div class="row form-ro">
-                            <input placeholder="Username" name="username" class="form-control" type="text">
+                            <input placeholder="Username2" name="username2" class="form-control" type="text">
                        </div>
                        <div class="row form-ro">
                             <input placeholder="Password" name="password" class="form-control" type="password">
@@ -115,7 +115,7 @@
 
 <script>
 
-  $("#login").modal('show');
+  
     function userlogin(){
         $("#signup").modal('hide');
         $("#login").modal('show');   

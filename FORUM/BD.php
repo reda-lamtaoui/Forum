@@ -1,3 +1,4 @@
+// Réaliser par lamtaoui
 <?php
 class BDD{
 	public $pdo;

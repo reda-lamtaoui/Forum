@@ -47,26 +47,44 @@
 	}
 	public function createUser($data){
 		$DB=$this->DB;
-		$pass=password_hash($this->sel($data), PASSWORD_DEFAULT);
+		$DB->query('select * from users where Email=:email');
+		$DB->bind(':email',$data['email']);
+        $Results=$DB->loadData();
+		if(empty($Results)) {
+		$pass=password_hash($data['password'], PASSWORD_DEFAULT);
 		$DB->query('insert into users(name,email,avatar,username,password,about,join_date,last_activity) values(:name,:email,:avatar,:username,:password,:about,:joinDate,:last)');
 		$DB->bind(':name',$data['name']);
         $DB->bind(':email',$data['email']);
         $DB->bind(':avatar',$data['avatar']);
         $DB->bind(':username',$data['username']);
-        // $DB->bind(':password',$pass);
-        $DB->bind(':password',$data['password']);
+        $DB->bind(':password',$pass);
+        // $DB->bind(':password',$data['password']);
         $DB->bind(':about',$data['about']);
         $DB->bind(':joinDate',$data['joinDate']);
         $DB->bind(':last',$data['lastActivity']);
         //Execute
         return $DB->execute();
+		}else{
+			return false;
+		}
+		
 	}
 	public function modifier($data,$ID){
 		$DB=$this->DB;
+		if (empty($data['password'])) {
+			$DB->query('update users set name=:name,username=:username,about=:about where id=:id');
+		$DB->bind(':id',$ID);
+		$DB->bind(':name',$data['name']);
+        $DB->bind(':username',$data['username']);
+        $DB->bind(':about',$data['about']);
+			$this->name=$data['name'];
+			$this->username=$data['username'];
+			$this->about=$data['about'];
+		}else{
 		$DB->query('update users set name=:name,username=:username,password=:password,about=:about where id=:id');
 		$DB->bind(':id',$ID);
 		$DB->bind(':name',$data['name']);
-        $DB->bind(':username',$data['password']);
+        $DB->bind(':username',$data['username']);
         $DB->bind(':password',$data['password']);
         $DB->bind(':about',$data['about']);
 			$this->name=$data['name'];
@@ -74,27 +92,34 @@
 			$this->about=$data['about'];
         //Execute
         return $DB->execute();
+        }
 	}
-	public function Login($username,$password){
+	public function Login($email,$password){
 		// $Req ="Select * from users where username=? and password=?";
 		// $Results=$this->DB->loadData($Req,$username,$password);
 		$DB=$this->DB;
-		$DB->query('select * from users where username=:username and password=:password');
-		$DB->bind(':username',$username);
-        $DB->bind(':password',$password);
+		$DB->query('select * from users where Email=:email');
+		$DB->bind(':email',$email);
         $Results=$DB->loadData();
 		if(empty($Results)) {
-			die("introuvable");
+			return false;
 		}else{
 foreach ($Results as $result) {
-			$this->id=$result[0];
+	if (password_verify($password,$result[5])==true) {
+		$this->id=$result[0];
 			$this->name=$result[1];
 			$this->email=$result[2];
 			$this->avatar=$result[3];
 			$this->username=$result[4];
 			$this->about=$result[6];
 			$this->lastActivity=$result[8];
+			return true;
+	}else{
+		return false;
+	}
+			
 		}
+		
 		}		
 	}
 	public function loadUser($id){
@@ -119,8 +144,19 @@ foreach ($Results as $result) {
 	public function getName(){
 		return $this->name;
 	}
-	public function getAvatar(){
-		return $this->avatar;
+	public function getAvatar($id=null){
+		$DB=$this->DB;
+		$DB->query('select * from users where id=:id');
+		$DB->bind(':id',$id);
+        $Results=$DB->loadData();
+		if(empty($Results)) {
+			return $this->avatar;
+		}else{
+foreach ($Results as $result) {
+			return $result[3];
+		}
+		}
+		
 	}
 	public function getId(){
 		return $this->id;
@@ -133,8 +169,19 @@ foreach ($Results as $result) {
 	public function getAbout(){
 		return $this->about;
 	}
-	public function getUsername(){
-		return $this->username;
+	public function getUsername($id=null){
+		$DB=$this->DB;
+		$DB->query('select * from users where id=:id');
+		$DB->bind(':id',$id);
+        $Results=$DB->loadData();
+		if(empty($Results)) {
+			return $this->username;
+		}else{
+foreach ($Results as $result) {
+			return $result[4];
+		}
+		}
+		
 	}
 	public function getLastActivity(){
 		return $this->lastActivity;

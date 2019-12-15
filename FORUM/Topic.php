@@ -18,6 +18,16 @@ include 'Class/model/replie.php';
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />    
   <link href="css/templatemo-style.css" rel="stylesheet" />
   <style>
+    .error{
+      background-color: red;
+      height: 1.4em;
+      color:black;
+    }
+    .valide{
+      background-color: green;
+      height: 1.4em;
+      color:black;
+    }
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 1100px;
@@ -82,11 +92,16 @@ button:hover, a:hover {
     $replie=new replie();
     $replie->createReplie($_GET["param"],$_SESSION["id"],$_POST["replie"]);
   }
-	 if(isset($_POST['connexion'])){
+    if(isset($_POST['connexion'])){
         $UserConnecte = new User();
-        $UserConnecte->login($_POST['username2'],$_POST['password']);
-        $_SESSION["id"]=$UserConnecte->getId();
-         $_SESSION["connexion"]="";
+        if ($UserConnecte->login($_POST['email'],$_POST['password'])==true) {
+         $_SESSION["id"]=$UserConnecte->getId();
+        $_SESSION["connexion"]="";
+         echo '<div class="valide">vous êtes connecté<div>';
+        }else{
+          echo '<div class="error">Mot de passe ou email incorrect<div>';
+        }
+        
     }
 if(isset($_POST['deco'])){
   session_destroy();

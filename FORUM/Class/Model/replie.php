@@ -1,5 +1,5 @@
 <?php 
- class categorie {
+ class replie {
  	private $DB;
  	private $id;
  	private $name;
@@ -55,6 +55,15 @@
 // 		}
 // 		}		
 // 	}
+	public function createReplie($topic,$user,$body){
+		$DB=$this->DB;
+		$DB->query('insert into replies(topic_id,user_id,body) values(:topic,:user,:body)');
+		$DB->bind(':topic',$topic);
+        $DB->bind(':user',$user);
+        $DB->bind(':body',$body);
+        //Execute
+        return $DB->execute();
+	}
 	public function getDescription($id=null){
 		return $this->description;
 	}
@@ -71,9 +80,10 @@
 // 		}
 // 		}		
 // 	}
-	public function loadAllCategories(){
+	public function loadAllReplies($id){
 		$DB=$this->DB;
-		$DB->query('select * from categories');
+		$DB->query('select * from replies where topic_id=:id');
+		$DB->bind(':id',$id);
         $Results=$DB->loadData();
 			return $Results;
 	}

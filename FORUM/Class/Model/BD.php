@@ -1,3 +1,4 @@
+// mohammed lamtaoui
 <?php
 class BDD{
 	public $pdo;

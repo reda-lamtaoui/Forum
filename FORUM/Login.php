@@ -23,9 +23,6 @@
                   <div class="modal-header">
                     <h5 class="modal-title">User login</h5> <br>
                     <p>Acceder A votre espace </p>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
                   </div>
                   <form action="" method="Post" method="Post" name="evale" 
               onsubmit="return tester(evale);" enctype="multipart/form-data" >
@@ -33,15 +30,16 @@
                   <div class="modal-body">
                     
                        <div class="row form-ro">
-                            <input placeholder="Username2" name="username2" class="form-control" type="text">
+                            <input placeholder="Email" name="email" class="form-control" type="text">
                        </div>
                        <div class="row form-ro">
                             <input placeholder="Password" name="password" class="form-control" type="password">
+                            <input name="connexion" type="hidden">
                        </div>
                          <div id="message">
                         </div>
                        <div class="row form-ro">
-                            <input type="submit" value="Log In" class="btn btn-success">
+                            <input type="submit" value="Log In" id="log" class="btn btn-success">
                        </div>
                        </form>
                       
@@ -50,12 +48,12 @@
                        </div>
                   </div>
                   
-                  <div class="modal-footer">
+                <!--   <div class="modal-footer">
                    <p>Sign Up with social media</p>
                     <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fab fa-facebook-f"></i></button>
                     <button type="button" class="btn btn-danger"><i class="fab fa-google-plus-g"></i></button>
                     <button type="button" class="btn btn-info"><i class="fab fa-twitter"></i></button>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -65,9 +63,6 @@
                 <div class="modal-content temp-model">
                   <div class="modal-header">
                     <h5 class="modal-title">Authentification</h5> <br>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
                   </div>
                   <form enctype="multipart/form-data" method="post" action="">
                     
@@ -84,13 +79,14 @@
                             <input placeholder="Username" name="username" class="form-control" type="text">
                        </div>
                        <div class="row form-ro">
-                            <input placeholder="Apropos" name="about" class="form-control" type="text">
+                            <input placeholder="About" name="about" class="form-control" type="text">
                        </div>
                        <div class="row form-ro">
-                            <input placeholder="Enter Email" name="email" class="form-control" type="text">
+                            <input placeholder="Email" name="email" class="form-control" type="text">
                        </div>
                        <div class="row form-ro">
-                            <input placeholder="Enter Password" name="password" class="form-control" type="password">
+                            <input placeholder="Password" name="password" class="form-control" type="password">
+                            <input name="inscription" type="hidden">
                        </div>
                        <div class="row form-ro">
                             <input class="btn btn-success" type="submit" value="Sign Up">
@@ -98,12 +94,12 @@
                        
                   </div>
                 </form>
-                  <div class="modal-footer">
+                <!--   <div class="modal-footer">
                    <p>Sign Up with social media</p>
                     <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fab fa-facebook-f"></i></button>
                     <button type="button" class="btn btn-danger"><i class="fab fa-google-plus-g"></i></button>
                     <button type="button" class="btn btn-info"><i class="fab fa-twitter"></i></button>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -112,10 +108,37 @@
     </body>
 
 
-
 <script>
+$(document).ready(function(){
+  $("#log").click(function(){
+    $.ajax({
+            type: 'get',
+            url: 'Verification.php',
+            data : 'email=reda',
+            success:function(data){
+              $('tbody').html(data);
+              
+            }
+        });
+    // $.ajax({
+    //    url : 'Verification.php',
+    //    type : 'GET',
+    //    data : 'email=reda',
+    //    dataType : 'html',
+    //    success : function(code_html, statut){ // success est toujours en place, bien sûr !
+    //        console.log('success',data);
+    //    },
 
-  
+    //    error : function(resultat, statut, erreur){
+
+    //    }
+
+    // });
+   
+});
+});
+    
+
     function userlogin(){
         $("#signup").modal('hide');
         $("#login").modal('show');   

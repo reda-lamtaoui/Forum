@@ -85,7 +85,7 @@
 		$DB->bind(':id',$ID);
 		$DB->bind(':name',$data['name']);
         $DB->bind(':username',$data['username']);
-        $DB->bind(':password',$data['password']);
+        $DB->bind(':password',password_hash($data['password'], PASSWORD_DEFAULT));
         $DB->bind(':about',$data['about']);
 			$this->name=$data['name'];
 			$this->username=$data['username'];

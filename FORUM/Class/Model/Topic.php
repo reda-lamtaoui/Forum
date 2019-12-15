@@ -60,14 +60,11 @@ foreach ($Results as $result) {
 	}
 	public function createTopic($data){
 		$DB=$this->DB;
-		$DB->query('insert into topics(categorie_ID,user_id,title,body,last_activity,create_data) values(:categorie_ID,:user_id,:title,:body,:last_activity,:create_data)');
+		$DB->query('insert into topics(category_id,user_id,title,body) values(:categorie_ID,:user_id,:title,:body)');
 		$DB->bind(':categorie_ID',$data['categorie_ID']);
         $DB->bind(':user_id',$data['user_id']);
         $DB->bind(':title',$data['title']);
         $DB->bind(':body',$data['body']);
-        // $DB->bind(':password',$pass);
-        $DB->bind(':last_activity',$data['last_activity']);
-        $DB->bind(':create_data',$data['create_data']);
         //Execute
         return $DB->execute();
 	}
@@ -88,5 +85,16 @@ foreach ($Results as $result) {
 	}
 	public function getcreate_data(){
 		return $this->create_data;
+	}
+	public function getReplies($id){
+		$DB=$this->DB;
+		$i=0;
+		$DB->query('select * from replies where topic_id=:id');
+		$DB->bind(':id',$id);
+        $Results=$DB->loadData();
+			foreach ($Results as $result) {
+				$i++;
+			}
+			return $i;
 	}
  }

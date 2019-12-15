@@ -56,8 +56,14 @@ button:hover, a:hover {
 </head>
 <body>
    <?php 
-$UserConnecte=new user();
+   if (isset($_SESSION["id"])) {
+     $UserConnecte=new user();
 $UserConnecte->loadUser($_SESSION["id"]);
+   }else{
+    header('Location:index.php');
+    exit();
+   }
+
 ?>
   <?php
 
@@ -107,7 +113,7 @@ if(isset($_POST['deco'])){
   <!-- Top box -->
     <!-- Logo & Site Name -->
     <div class="placeholder">
-      <div class="parallax-window" data-parallax="scroll" data-image-src="img/simple-house-01.jpg">
+      <div class="parallax-window" data-parallax="scroll" data-image-src="img/10-03-forum.jpg">
         <div class="tm-header">
           <div class="row tm-header-inner">
             <div class="col-md-6 col-12">
@@ -120,12 +126,21 @@ if(isset($_POST['deco'])){
             <nav class="col-md-6 col-12 tm-nav">
               <ul class="tm-nav-ul">
                 <li class="tm-nav-li"><a href="index.php" class="tm-nav-link active">Home</a></li>
-                <li class="tm-nav-li"><a href="about.php" class="tm-nav-link">About</a></li>
-                <li class="tm-nav-li"><a href="contact.php" class="tm-nav-link">Contact</a></li>
+                <li class="tm-nav-li"><a href="#" class="tm-nav-link">About</a></li>
+                <li class="tm-nav-li"><a href="#" class="tm-nav-link">Contact</a></li>
                 <?php 
             if(isset($_SESSION['connexion'])){
               ?>
-              <li class="tm-nav-li"><a href="topic" class="tm-nav-link">Profil</a></li>
+             <div class="dropdown">
+   <li class="tm-nav-li"><a >Profil</a></li>
+  <div class="dropdown-content">
+    <a href="profil" class="tm-nav-link">Paramétre</a>
+     <form action="index" method="Post" enctype="multipart/form-data" >
+     <input name="deco" class="form-control" type="hidden">
+    <button type="submit" class="tm-nav-link" style="background-color: red;">sign out</button>
+  </form>
+  </div>
+</div>
               <?php
             }else{
               ?>
@@ -144,7 +159,7 @@ if(isset($_POST['deco'])){
    
 <main>
       <div class="chemin">
-      <p><img src="img/home.svg">-><a href="index.php">Home</a>-><a href="topic">profil</a>-><a href="modifier">modification</a></p>
+      <p><img src="img/home.svg">-><a href="index.php">Home</a>-><a href="profil">profil</a>-><a href="modifier">modification</a></p>
       </div>
       <h2 style="text-align:center">User Profile</h2>
 
@@ -163,7 +178,6 @@ if(isset($_POST['deco'])){
                        
                        <div class="row form-ro">
                             <input placeholder="New password" name="password" class="form-control" type="password">
-                             
                        </div>
                        <div class="row form-ro">
                        <input name="modification" value="modif" type="hidden">

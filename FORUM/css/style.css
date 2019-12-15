@@ -42,7 +42,8 @@ header{padding-top:20px;height:148px}
 #logo:hover {-moz-transform:rotateY(360deg);-webkit-transform:rotateY(360deg);transform:rotateY(360deg);}
 #menu {float:right;padding-top:10px;}
 #menu li {float:left;padding-left:40px}
-#menu li a{display:block;font:20px "Trebuchet MS", Arial, Helvetica, sans-serif;line-height:1.2em;color:#1e21c1;text-transform:uppercase;text-decoration:none;text-align:center;letter-spacing:-1px;height:79px;font-style:normal;font-weight:700}
+#menu li a{display:block;font:20px "Trebuchet MS", Arial, Helvetica, sans-serif;line-height:1.2em;color:#1e21c1;
+text-transform:uppercase;text-decoration:none;text-align:center;letter-spacing:-1px;height:79px;font-style:normal;font-weight:700}
 #menu li a span{font-size:13px;line-height:1.2em;color:#f2510b;display:block;letter-spacing:-1px;margin-top:-3px;font-weight:normal}
 #menu li a:hover, #menu .active a{color:#f2510b}
 #menu li a:hover span, #menu .active a span{color:#1e21c1}

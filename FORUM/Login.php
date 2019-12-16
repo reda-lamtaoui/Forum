@@ -67,12 +67,16 @@
                   <form enctype="multipart/form-data" method="post" action="">
                     
                   <div class="modal-body">
+
                      <div class="row form-r">
                              <select placeholder="pays" name="civilite" class="form-control" name="thelist">
                               <option value="" disabled selected>civilite</option>
                               <option value="Mr">Mr</option>
                               <option value="Mme">Mme</option>
                             </select>
+                       </div>
+                       <div class="row form-ro">
+                        <input type="file" class="form-control" accept="image/*" name="fileToUpload" id="fileToUpload">
                        </div>
                        <div class="row form-r">
                             <input placeholder="Nom" name="name" class="form-control" type="text">
@@ -88,6 +92,7 @@
                             <input placeholder="Password" name="password" class="form-control" type="password">
                             <input name="inscription" type="hidden">
                        </div>
+
                        <div class="row form-ro">
                             <input class="btn btn-success" type="submit" value="Sign Up">
                        </div>

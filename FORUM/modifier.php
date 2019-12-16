@@ -177,7 +177,7 @@ if(isset($_POST['deco'])){
       <div class="chemin">
       <p><img src="img/home.svg">-><a href="index.php">Home</a>-><a href="profil">profil</a>-><a href="modifier">modification</a></p>
       </div>
-      <h2 style="text-align:center">User Profile</h2>
+      <h2 style="text-align:center">Modification Profile</h2>
 
 <div class="card">
    <form enctype="multipart/form-data" method="post" action="">
@@ -208,9 +208,7 @@ if(isset($_POST['deco'])){
     
 
     <footer class="tm-footer text-center">
-      <p>Copyright &copy; 2020 Simple House 
-            
-            | Design: <a rel="nofollow" href="https://templatemo.com">TemplateMo</a></p>
+      <p>Copyright &copy; 2020 mohammed myforum</p>
     </footer>
   </div>
 <script src="js/jquery.min.js"></script>

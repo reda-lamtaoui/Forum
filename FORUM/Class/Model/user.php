@@ -72,14 +72,17 @@
 	public function modifier($data,$ID){
 		$DB=$this->DB;
 		if (empty($data['password'])) {
-			$DB->query('update users set name=:name,username=:username,about=:about where id=:id');
+			$DB->query('update users set name=:name,username=:username,about=:about,avatar=:avatar where id=:id');
 		$DB->bind(':id',$ID);
+		$DB->bind(':avatar',$data['avatar']);
 		$DB->bind(':name',$data['name']);
         $DB->bind(':username',$data['username']);
         $DB->bind(':about',$data['about']);
 			$this->name=$data['name'];
 			$this->username=$data['username'];
 			$this->about=$data['about'];
+			$this->avatar=$data['avatar'];
+			return $DB->execute();
 		}else{
 		$DB->query('update users set name=:name,username=:username,password=:password,about=:about where id=:id');
 		$DB->bind(':id',$ID);
@@ -90,6 +93,7 @@
 			$this->name=$data['name'];
 			$this->username=$data['username'];
 			$this->about=$data['about'];
+			$this->avatar=$data['avatar'];
         //Execute
         return $DB->execute();
         }

@@ -68,10 +68,26 @@ $UserConnecte->loadUser($_SESSION["id"]);
   <?php
 
 if(isset($_POST['modification'])){
-        //get username and password
+        if ($_FILES['fileToUpload']['name']!=null) {
+       $today=date("Y-m-d");
+$time=date('H:i:s', time() - date('Z'));
+$target_dir = "image/".$UserConnecte->getEmail();
+$target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
+$uploadOk = 1;
+      if ($uploadOk == 1) {
+          if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+               $avatar=$target_file;
+          }
+          }else{
+            $avatar="image/icone/homme.jpg";
+          }
+      }else{
+        // $avatar=$UserConnecte->getAvatar();
+      }
         $data =array("name" =>$_POST['name'], 
               "username" =>$_POST['username'] , 
-              "password" =>$_POST['password'] , 
+              "password" =>$_POST['password'] ,
+              "avatar"=> $avatar,
               "about" =>$_POST['about']
       );
         //Create user object
@@ -175,7 +191,9 @@ if(isset($_POST['deco'])){
                        <div class="row form-ro">
                             <input placeholder="Apropos" name="about" value="'.$UserConnecte->getAbout().'" class="form-control" type="text">
                        </div>
-                       
+                       <div class="row form-ro">
+                        <input type="file" class="form-control" accept="image/*" name="fileToUpload" id="fileToUpload">
+                       </div>
                        <div class="row form-ro">
                             <input placeholder="New password" name="password" class="form-control" type="password">
                        </div>
@@ -190,7 +208,9 @@ if(isset($_POST['deco'])){
     
 
     <footer class="tm-footer text-center">
-      <p>Copyright &copy; 2020 mohammed myforum</p>
+      <p>Copyright &copy; 2020 Simple House 
+            
+            | Design: <a rel="nofollow" href="https://templatemo.com">TemplateMo</a></p>
     </footer>
   </div>
 <script src="js/jquery.min.js"></script>

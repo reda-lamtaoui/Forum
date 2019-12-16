@@ -108,12 +108,27 @@ if(isset($_POST['deco'])){
   session_start();
      }
 if(isset($_POST['inscription'])){
-	if ($_POST['civilite']=="Mr") {
-		$avatar="image/icone/homme.jpg";
-	}else{
-		$avatar="image/icone/femme.jpg";
-	}
-        //get username and password
+
+if ($_FILES['fileToUpload']['name']!=null) {
+       $today=date("Y-m-d");
+$time=date('H:i:s', time() - date('Z'));
+$target_dir = "image/".$_POST['email'];
+$target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
+$uploadOk = 1;
+      if ($uploadOk == 1) {
+          if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+               $avatar=$target_file;
+          }
+          }else{
+            $avatar="image/icone/homme.jpg";
+          }
+      }else{
+        if ($_POST['civilite']=="Mr") {
+    $avatar="image/icone/homme.jpg";
+  }else{
+    $avatar="image/icone/femme.jpg";
+  }
+      }
         $data =array("name" =>$_POST['name'], 
               "email" =>$_POST['email'] , 
               "avatar" =>$avatar , 
@@ -125,7 +140,12 @@ if(isset($_POST['inscription'])){
       );
         //Create user object
         $user = new User();
-        $user->createUser($data);
+        if ($user->createUser($data)==false) {
+          echo '<div class="error">email existe déja<div>';
+        }else{
+          echo '<div class="valide">Compte crée<div>';
+        }
+        
      }
 ?>
 <!-- 	<div class="body1">
